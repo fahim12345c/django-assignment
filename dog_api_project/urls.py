@@ -23,7 +23,7 @@ urlpatterns = [
     path('api/breeds/',BreedList.as_view()),
     path('api/breeds/<int:pk>/',BreedDetail.as_view()),
     path('api/dogs/',DogList.as_view()),
-    path('api/dogss/<int:pk>/',DogDetail.as_view()),
+    path('api/dogs/<int:pk>/',DogDetail.as_view()),
     
 
 

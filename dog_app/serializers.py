@@ -25,6 +25,7 @@ class DogSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'name',
+            'age',
             'breed',
             'gender',
             'color',

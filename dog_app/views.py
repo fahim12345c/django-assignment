@@ -1,21 +1,27 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
-from .models import Breed,Dog
-from .serializers import BreedSerializer,DogSerializer
+from .models import Breed, Dog
+from .serializers import BreedSerializer, DogSerializer
 from rest_framework.response import Response
 from rest_framework import status
+from django.http import Http404
 # Create your views here.
+
+
 class BreedList(APIView):
-    def get(self,request):
-        breeds=Breed.objects.all()
-        serializer=BreedSerializer(breeds,many=True)
+    def get(self, request):
+        breeds = Breed.objects.all()
+        serializer = BreedSerializer(breeds, many=True)
         return Response(serializer.data)
+
     def post(self, request, format=None):
         serializer = BreedSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 class BreedDetail(APIView):
     def get_object(self, pk):
         try:
@@ -41,17 +47,21 @@ class BreedDetail(APIView):
         breed.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+
 class DogList(APIView):
-    def get(self,request):
-        dogs=Dog.objects.all()
-        serializer=DogSerializer(dogs,many=True)
+    def get(self, request):
+        dogs = Dog.objects.all()
+        serializer = DogSerializer(dogs, many=True)
         return Response(serializer.data)
+
     def post(self, request, format=None):
         serializer = DogSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 class DogDetail(APIView):
     def get_object(self, pk):
         try:
